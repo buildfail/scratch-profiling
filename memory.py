@@ -74,3 +74,5 @@ if __name__ == "__main__":
     ax.legend()
 
     fig.savefig(args.out)
+
+    print("Peak USS %fMB",max(uss))
