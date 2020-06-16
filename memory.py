@@ -75,4 +75,4 @@ if __name__ == "__main__":
 
     fig.savefig(args.out)
 
-    print("Peak USS %fMB",max(uss))
+    print("Peak USS %fMB" % (max(uss)))
