@@ -9,11 +9,13 @@ import subprocess
 import matplotlib
 import matplotlib.pyplot as plt
 
-runtime = 60 * 4
+runtime = 6 #  60 * 4
 
 def run_scratch(cmd):
 
-    memusage = []
+    rssusage = []
+    ussusage = []
+
     env = os.environ.copy()
     env["DISPLAY"] = ":0.0"
     pid = subprocess.Popen([cmd],env=env).pid
@@ -21,17 +23,24 @@ def run_scratch(cmd):
     
     while True:
         current_process = psutil.Process(pid)
-        mem = current_process.memory_full_info().rss
+
+        rss = current_process.memory_full_info().rss
+        uss = current_process.memory_full_info().uss
+
         for child in current_process.children(recursive=True):
-            mem += child.memory_full_info().rss
-        memusage.append(mem/1024/1024)
+            rss += child.memory_full_info().rss
+            uss += child.memory_full_info().uss
+
+        rssusage.append(rss/1024/1024)
+        ussusage.append(uss/1024/1024)
+
         time.sleep(1)
         timecounter += 1
         if timecounter > runtime:
             break
 
     os.kill(pid, signal.SIGSTOP)
-    return memusage
+    return (rssusage,ussusage)
 
 if __name__ == "__main__":
 
@@ -53,13 +62,15 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-    mem = run_scratch(args.cmd)
+    rss,uss = run_scratch(args.cmd)
 
     fig, ax = plt.subplots()
-    ax.plot(range(len(mem)), mem)
+    ax.plot(range(len(rss)), rss, label="RSS")
+    ax.plot(range(len(uss)), uss, label="USS")
 
     ax.set(xlabel='time (s)', ylabel='Memory (MB)',
        title='Memory usage of scratch')
     ax.grid()
+    ax.legend()
 
     fig.savefig(args.out)
