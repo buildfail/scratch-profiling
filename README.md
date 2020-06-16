@@ -19,6 +19,7 @@ sudo apt install python3-matplotlib
 
 ## Scratch3 New Version
 
+![scratch3 memory](images/memory-scratch3new.png)
 
 # To Do
 
