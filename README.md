@@ -8,6 +8,7 @@ Makes use of python + psutil to obtain memory usage recursively for a particular
 
 ```
 sudo apt install python3-matplotlib
+pip3 install pyasar
 ./memory.py --cmd scratch3 --out graph.png
 ```
 
@@ -27,4 +28,5 @@ I ran 'free -m' while Scratch was running and after, and the difference was arou
 
 # To Do
 
+* Investigate ASAR contents
 * Profile memory usage
