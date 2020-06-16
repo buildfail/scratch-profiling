@@ -1,13 +1,14 @@
 # scratch-profiling
 
 Scripts for profiling scratch memory usage etc.
+
 Makes use of python + psutil to obtain memory usage recursively for a particular spawned process.
 
 # Usage
 
 ```
 sudo apt install python3-matplotlib
-./memory.py --out graph.png
+./memory.py --cmd scratch3 --out graph.png
 ```
 
 # Examples
@@ -23,5 +24,4 @@ sudo apt install python3-matplotlib
 
 # To Do
 
-* Graph memory usage
 * Profile memory usage
