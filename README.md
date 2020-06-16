@@ -8,7 +8,6 @@ Makes use of python + psutil to obtain memory usage recursively for a particular
 
 ```
 sudo apt install python3-matplotlib
-pip3 install pyasar
 ./memory.py --cmd scratch3 --out graph.png
 ```
 
