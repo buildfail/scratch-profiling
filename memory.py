@@ -9,7 +9,7 @@ import subprocess
 import matplotlib
 import matplotlib.pyplot as plt
 
-runtime = 6 #  60 * 4
+runtime = 60 * 4
 
 def run_scratch(cmd):
 
