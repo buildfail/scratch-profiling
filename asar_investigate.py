@@ -10,29 +10,22 @@ import argparse
 def process(jsin,base64out):
     # Find base64 data, ...
     
-    #f = open(jsin,'rb')    
-    #reader = io.BufferedReader(f)
-    #wrapper = io.TextIOWrapper(reader)
-    #wrapper.read()
-
     f = open(jsin,'rb')
     dat = mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ)
     counter = 1
     pattern = re.compile(br'(base64,([a-zA-Z0-9\+\/]+=*))',re.MULTILINE)
 
     for m in pattern.finditer(dat):
-
         start = m.start()
         end = m.end()
         base64dat = m.group(2)
-        #print(dat[start:start+30])
 
         try:
             tmp = open(os.path.join(base64out,"%d.out" % counter),'wb')
             tmp.write(base64.b64decode(base64dat))
             tmp.close()
         except Exception:
-            nop = 0
+            print("Failed to decode",dat[start:start+20])
 
         counter += 1
 
