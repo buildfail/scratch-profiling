@@ -6,9 +6,18 @@ Makes use of python + psutil to obtain memory usage recursively for a particular
 
 # Usage
 
+To examine memory usage:
+
 ```
 sudo apt install python3-matplotlib
 ./memory.py --cmd scratch3 --out graph.png
+```
+
+To examine files from the ASAR:
+
+```
+npx asar extract app.asar unpacked
+./asar_investigate.py --in unpacked/1.bundle.js
 ```
 
 # Examples
