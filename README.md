@@ -45,7 +45,7 @@ ps ax | grep "[s]cratch" | awk '{ print $1 }' | tr '\n' ' '
 Using the PIDs obtained through the previous step, I then did the following to create core dumps for each process, and output strings from them:
 
 ```
-gcore -a -o dump.bin 4899 4902 4904 4930 4935 4937 4939 4970 5021
+gcore -o dump.bin 4899 4902 4904 4930 4935 4937 4939 4970 5021
 strings dump.bin.*
 ```
 
@@ -59,6 +59,8 @@ I need to determine if this Base64 data was actually in the RAM itself, or was a
 I am currently looking at the section "Controlling which mappings are written to the core dump" in https://man7.org/linux/man-pages/man5/core.5.html
 
 It says "By default, the following bits are set: 0, 1, 4", which would mean file backed storage wouldn't be written with the core dump.
+
+It seems using 'gcore -a' ignores these filter bits and captures all data, so I removed using the '-a' argument.
 
 # To Do
 
