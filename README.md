@@ -62,6 +62,15 @@ It says "By default, the following bits are set: 0, 1, 4", which would mean file
 
 It seems using 'gcore -a' ignores these filter bits and captures all data, so I removed using the '-a' argument.
 
+I checked the value:
+
+```
+cat /proc/4899/coredump_filter 
+00000033
+```
+
+Which is 00110011 in binary, which should mean file-backed mappings weren't included.
+
 # To Do
 
 * Investigate ASAR contents
