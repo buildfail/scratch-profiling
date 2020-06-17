@@ -34,6 +34,32 @@ I ran 'free -m' while Scratch was running and after, and the difference was arou
 
 ![scratch3 memory](images/memory-scratch3new.png)
 
+# Base64
+
+I found the running Scratch processes doing:
+
+```
+ps ax | grep "[s]cratch" | awk '{ print $1 }' | tr '\n' ' '
+```
+
+Using the PIDs obtained through the previous step, I then did the following to create core dumps for each process, and output strings from them:
+
+```
+gcore -a -o dump.bin 4899 4902 4904 4930 4935 4937 4939 4970 5021
+strings dump.bin.*
+```
+
+I noticed in the dumps there appeared to be some Base64, which existed in the app.asar file, confirmed by:
+```
+grep "<BASE64 String>" app.asar
+```
+
+I need to determine if this Base64 data was actually in the RAM itself, or was a memory mapped file.
+
+I am currently looking at the section "Controlling which mappings are written to the core dump" in https://man7.org/linux/man-pages/man5/core.5.html
+
+It says "By default, the following bits are set: 0, 1, 4", which would mean file backed storage wouldn't be written with the core dump.
+
 # To Do
 
 * Investigate ASAR contents
