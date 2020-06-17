@@ -18,19 +18,16 @@ def process(jsin,base64out):
 
         start = m.start()
         end = m.end()
+        origsize = (end - start)/1024/1024
         base64dat = m.group(2)
 
         try:
             filename = os.path.join(base64out,"%d.out" % counter)            
             tmp = open(filename,'wb')
             tmp.write(base64.b64decode(base64dat))
-
-            if int(tmp.tell()/1024/1024) == 0:
-                print("Extracted size",int(tmp.tell()/1024),"KB",filename)            
-            else:
-                print("Extracted size",int(tmp.tell()/1024/1024),"MB",filename)
+            exsize = tmp.tell()/1024/1024
+            print("""Extracted size %.2fMB, Orig size %.2fMB""" % (exsize,origsize))
             tmp.close()
-
         except Exception:
             print("Failed to decode",dat[start:start+20])
 

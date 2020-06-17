@@ -33,9 +33,12 @@ def run_scratch(cmd):
 
         rssusage.append(rss/1024/1024)
         ussusage.append(uss/1024/1024)
+        
+        print("Memory ",uss/1024/1024,"MB")
 
         time.sleep(1)
         timecounter += 1
+
         if timecounter > runtime:
             break
 
