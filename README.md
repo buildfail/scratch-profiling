@@ -81,7 +81,9 @@ You can see the selected base64 string occupies 26.6MB, which matches the size o
 strings from the .asar file (in the file 1.bundle.js, contained within the .asar), found using the 
 asar_investigate.py script.
 
-The total size for the heap dump for index.html appears to be roughly 50MB.
+The total size for the heap dump for index.html appears to be roughly 50MB and the heap dump for about.html
+seems to be less than 10MB.  While the sum total memory is roughly 300MB as measured by summing USS memory
+values for all Scratch processes.
 
 # To Do
 
