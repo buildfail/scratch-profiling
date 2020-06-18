@@ -81,6 +81,8 @@ You can see the selected base64 string occupies 26.6MB, which matches the size o
 strings from the .asar file (in the file 1.bundle.js, contained within the .asar), found using the 
 asar_investigate.py script.
 
+The total size for the heap dump for index.html appears to be roughly 50MB.
+
 # To Do
 
 * Investigate ASAR contents
