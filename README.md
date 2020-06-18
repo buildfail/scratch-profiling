@@ -71,6 +71,16 @@ cat /proc/4899/coredump_filter
 
 Which is 00110011 in binary, which should mean file-backed mappings weren't included.
 
+# Heap profile
+
+Base64 strings are visible in the heap profile:
+
+![heap](images/heap.png)
+
+You can see the selected base64 string occupies 26.6MB, which matches the size of one of the base64
+strings from the .asar file (in the file 1.bundle.js, contained within the .asar), found using the 
+asar_investigate.py script.
+
 # To Do
 
 * Investigate ASAR contents
