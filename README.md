@@ -144,6 +144,34 @@ https://github.com/electron/electron/issues/11769
 
 (I did try it though, but Scratch didn't open)
 
+# Tracing
+
+The following excellent webpage describes how to trace all processes of electron during startup:
+https://blog.scottlogic.com/2019/05/21/analysing-electron-performance-chromium-tracing.html
+
+In scratch-desktop, to the package.json I modified the "start" line to:
+```
+    "start": "electron-webpack dev --bail --display-error-details --env.minify=false --trace-config-file=./trace-config.json",
+```
+
+And created trace-config.json:
+
+```
+{  
+  "startup_duration": 60,
+  "result_file": "./trace.json",
+  "trace_config": {
+    "included_categories": ["disabled-by-default-memory-infra"],
+    "memory_dump_config": {
+      "triggers": [
+        { "mode": "light", "periodic_interval_ms": 50 },
+        { "mode": "detailed", "periodic_interval_ms": 1000 }
+      ]
+    }
+  }
+}
+```
+
 # To Do
 
 * Investigate ASAR contents
