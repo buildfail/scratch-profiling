@@ -87,6 +87,50 @@ The total size for the heap dump for index.html appears to be roughly 50MB and t
 seems to be less than 10MB.  While the sum total memory is roughly 370MB as measured by summing PSS memory
 values for all Scratch processes.
 
+# gperftools
+
+I tried using gperftools - https://github.com/gperftools/gperftools
+
+To see if I could find any memory leaks doing:
+
+```
+HEAPCHECK=normal HEAPPROFILE=/tmp/heap.hprof DISPLAY=:0.0 LD_PRELOAD=./libtcmalloc.so scratch3 
+```
+
+Unfortunately that failed to work, giving:
+
+```
+No live heap object at 0x571fe40 to ignore
+Check failed: heap_profile->FindAlloc(test_str, &size): our own new/delete not linked?
+```
+
+# LD_PRELOAD
+
+I also tried hooking malloc, using LD_PRELOAD, running scratch like:
+
+```
+gcc -Wall -fPIC -shared -o mem.so mem.c -ldl
+LD_PRELOAD=./mem.so scratch3
+```
+
+This was to see if I could monitor large memory allocations.  However I only obtained very small allocations, I assume V8 might use a different allocator for the majority of allocations?.
+
+```
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <dlfcn.h>
+
+void * malloc(size_t size) {
+    void *(*original_malloc)(size_t size);
+    original_malloc = dlsym(RTLD_NEXT, "malloc");
+
+    fprintf(stderr,"malloc %d\n",size);
+    fflush(stderr);
+    
+    return original_malloc(size);
+}
+```
+
 # To Do
 
 * Investigate ASAR contents
