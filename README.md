@@ -23,7 +23,9 @@ npx asar extract app.asar unpacked
 # Examples
 
 I believe now that PSS gives a more accurate measure of memory utilised when summed for child processes than RSS, as 
-I ran 'free -m' while Scratch was running and after, and the difference of free memory was around 370MB, which is much closer to the PSS value.
+I ran 'free -m' while Scratch (new version) was running and after, and the difference of free memory was around 370MB, which is much closer to the PSS value, around 375MB.
+
+The link - https://stackoverflow.com/questions/131303/how-to-measure-actual-memory-usage-of-an-application-or-process has some good information on RSS, USS and PSS.
 
 ## Scratch3 Raspbian Version
 
