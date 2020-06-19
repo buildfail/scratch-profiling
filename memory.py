@@ -15,6 +15,7 @@ def run_scratch(cmd):
 
     rssusage = []
     ussusage = []
+    pssusage = []
 
     env = os.environ.copy()
     env["DISPLAY"] = ":0.0"
@@ -26,15 +27,18 @@ def run_scratch(cmd):
 
         rss = current_process.memory_full_info().rss
         uss = current_process.memory_full_info().uss
+        pss = current_process.memory_full_info().pss
 
         for child in current_process.children(recursive=True):
             rss += child.memory_full_info().rss
             uss += child.memory_full_info().uss
+            pss += child.memory_full_info().pss
 
         rssusage.append(rss/1024/1024)
         ussusage.append(uss/1024/1024)
+        pssusage.append(pss/1024/1024)
         
-        print("Memory ",uss/1024/1024,"MB")
+        print("Memory ",pss/1024/1024,"MB")
 
         time.sleep(1)
         timecounter += 1
@@ -43,7 +47,7 @@ def run_scratch(cmd):
             break
 
     os.kill(pid, signal.SIGSTOP)
-    return (rssusage,ussusage)
+    return (rssusage,ussusage,pssusage)
 
 if __name__ == "__main__":
 
@@ -65,11 +69,12 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-    rss,uss = run_scratch(args.cmd)
+    rss,uss,pss = run_scratch(args.cmd)
 
     fig, ax = plt.subplots()
     ax.plot(range(len(rss)), rss, label="RSS")
     ax.plot(range(len(uss)), uss, label="USS")
+    ax.plot(range(len(pss)), pss, label="PSS")
 
     ax.set(xlabel='time (s)', ylabel='Memory (MB)',
        title='Memory usage of scratch')
@@ -78,4 +83,4 @@ if __name__ == "__main__":
 
     fig.savefig(args.out)
 
-    print("Peak USS %fMB" % (max(uss)))
+    print("Peak PSS %fMB" % (max(pss)))

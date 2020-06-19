@@ -22,8 +22,8 @@ npx asar extract app.asar unpacked
 
 # Examples
 
-I believe now that USS gives a more accurate measure of memory utilised when summed for child processes than RSS, as 
-I ran 'free -m' while Scratch was running and after, and the difference was around 350MB, which is much closer to the USS value.
+I believe now that PSS gives a more accurate measure of memory utilised when summed for child processes than RSS, as 
+I ran 'free -m' while Scratch was running and after, and the difference of free memory was around 370MB, which is much closer to the PSS value.
 
 ## Scratch3 Raspbian Version
 
@@ -82,7 +82,7 @@ strings from the .asar file (in the file 1.bundle.js, contained within the .asar
 asar_investigate.py script.
 
 The total size for the heap dump for index.html appears to be roughly 50MB and the heap dump for about.html
-seems to be less than 10MB.  While the sum total memory is roughly 300MB as measured by summing USS memory
+seems to be less than 10MB.  While the sum total memory is roughly 370MB as measured by summing PSS memory
 values for all Scratch processes.
 
 # To Do
