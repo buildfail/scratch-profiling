@@ -36,6 +36,10 @@ The link - https://stackoverflow.com/questions/131303/how-to-measure-actual-memo
 
 ![scratch3 memory](images/memory-scratch3new.png)
 
+## Scratch3 New Version with devtools
+
+![scratch3 memory](images/memory-scratch3new-devtools.png)
+
 # Base64
 
 I found the running Scratch processes doing:
