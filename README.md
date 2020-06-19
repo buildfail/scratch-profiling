@@ -135,6 +135,15 @@ void * malloc(size_t size) {
 }
 ```
 
+# Valgrind
+
+Valgrind is a very handy tool for investigating memory leaks etc, however it seems it currently 
+can't be used with electron:
+
+https://github.com/electron/electron/issues/11769
+
+(I did try it though, but Scratch didn't open)
+
 # To Do
 
 * Investigate ASAR contents
