@@ -158,10 +158,11 @@ And created trace-config.json:
 
 ```
 {  
-  "startup_duration": 60,
+  "startup_duration": 80,
   "result_file": "./trace.json",
   "trace_config": {
     "included_categories": ["disabled-by-default-memory-infra"],
+    "excluded_categories": ["*"], 
     "memory_dump_config": {
       "triggers": [
         { "mode": "light", "periodic_interval_ms": 50 },
@@ -171,6 +172,10 @@ And created trace-config.json:
   }
 }
 ```
+
+I found you need to open the JSON created in "chrome://tracing/" rather than devtools.
+
+![heap](images/tracing.png)
 
 # To Do
 
