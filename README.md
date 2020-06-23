@@ -218,6 +218,12 @@ At the bottom of the 'app.on('ready', () => {' method, I added:
 
 This did create a trace file, however there was still no additional heap information.
 
+In Chromium if I create a trace via chrome://tracing, just for the Chromium browser (not related to electron)
+and enable MemoryInfra and set the memlog flags a heap section does appear, so it's strange that I am not obtaining 
+one with electron too:
+
+![heap](images/tracing-heap.png)
+
 
 # To Do
 
