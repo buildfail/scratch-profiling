@@ -181,6 +181,43 @@ I found that unfortunately the list of objects that are allocated seem to be 'un
 
 ![heap](images/tracing-unspec.png)
 
+I tried enabling 'memlog', to get additional heap information:
+
+In scratch-desktop/src/main/index.js:
+
+Near the top I added:
+
+```
+app.commandLine.appendSwitch("memlog","all")
+app.commandLine.appendSwitch("memlog-sampling")
+app.commandLine.appendSwitch("memlog-keep-small-allocations")
+app.commandLine.appendSwitch("memlog-sampling-rate",100000)
+app.commandLine.appendSwitch('memlog-stack-mode', 'native');
+```
+
+At the bottom of the 'app.on('ready', () => {' method, I added:
+```
+    (async () => {
+    await contentTracing.startRecording({
+      trace_buffer_size_in_kb: 1024*300,
+      included_categories: ['disabled-by-default-memory-infra'],
+      excluded_categories: ['*'],
+      "memory_dump_config": {
+      "triggers": [
+        { "mode": "light", "periodic_interval_ms": 50 },
+        { "mode": "detailed", "periodic_interval_ms": 1000 }
+      ]
+     }
+    })
+    console.log('Tracing started')
+    await new Promise(resolve => setTimeout(resolve, 60000))
+    const path = await contentTracing.stopRecording()
+    console.log('Tracing data recorded to ' + path)
+  })()
+```
+
+This did create a trace file, however there was still no additional heap information.
+
 
 # To Do
 
