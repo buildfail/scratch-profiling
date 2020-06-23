@@ -177,6 +177,11 @@ I found you need to open the JSON created in "chrome://tracing/" rather than dev
 
 ![heap](images/tracing.png)
 
+I found that unfortunately the list of objects that are allocated seem to be 'unspecified' sometimes:
+
+![heap](images/tracing-unspec.png)
+
+
 # To Do
 
 * Investigate ASAR contents
