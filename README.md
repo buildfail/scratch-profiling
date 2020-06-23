@@ -188,6 +188,8 @@ In scratch-desktop/src/main/index.js:
 Near the top I added:
 
 ```
+const { contentTracing } = require('electron')
+
 app.commandLine.appendSwitch("memlog","all")
 app.commandLine.appendSwitch("memlog-sampling")
 app.commandLine.appendSwitch("memlog-keep-small-allocations")
