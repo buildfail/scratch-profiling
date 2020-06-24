@@ -226,6 +226,14 @@ one with electron too:
 
 ![heap](images/tracing-heap.png)
 
+In chromium, if I disable the memlog flag, then try to record a trace with MemoryInfra, no extra heap information appears. 
+If I then run chromium with:
+
+```
+chromium --memlog=all
+```
+
+And record a trace, additional heap information appears, so the flag does work with chromium.
 
 # To Do
 
